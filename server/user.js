@@ -4,6 +4,32 @@ const Router = express.Router()
 const User = require('./model.js')
 const _filter = {'pwd': 0,'__v': 0}
 
+Router.post('/update',function(req,res){
+    const userid = req.cookies.userid
+    console.log(userid)
+    if(!userid){
+        return res.dumps({
+            code: 220,
+            message: '用户未登录或登录超时'
+        })
+    }
+    const body = req.body
+    User.findByIdAndUpdate(userid,body,function(err,doc){
+        if(err){
+            console.log(err)
+        }
+        const data = Object.assign({},{
+            user: doc.user,
+            type: doc.type
+        },body)
+        res.json({
+            code: 200,
+            body: data
+        })
+    })
+    
+})
+
 Router.post('/login',(req,res) => {
     const { user,pwd } = req.body
     User.findOne({user,pwd: md5Pwd(pwd)},_filter,function(err,doc){
