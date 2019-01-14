@@ -13,6 +13,10 @@ class Login extends React.Component{
         this.props.history.push('/register')
     }
 
+    handleLogin(){
+        this.props.history.push('/bossinfo')
+    }
+
     render(){
         return (
             <div>
@@ -25,7 +29,7 @@ class Login extends React.Component{
                         type="password">密码</InputItem>
                     </List>
                     <WhiteSpace/>
-                    <Button type="primary">登录</Button>
+                    <Button onClick={this.handleLogin} type="primary">登录</Button>
                     <WhiteSpace/>
                     <Button onClick={this.register} type="primary">注册</Button>
                 </WingBlank>
