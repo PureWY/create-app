@@ -3,7 +3,6 @@ const Router = express.Router()
 const User = require('./model.js')
 
 Router.post('/register',function(req,res){
-    console.log(req.body)
     const {user,pwd,type} = req.body
     User.findOne({user: user},function(err,doc){
         if(doc){
@@ -30,6 +29,7 @@ Router.post('/register',function(req,res){
 
 
 Router.get('/info',(req,res) => {
+    console.log(req.body)
     res.json({
         code: 203
     })

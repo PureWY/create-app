@@ -11,6 +11,9 @@ db()
 
 app.use(cookieParser());
 
+//post请求URL解析
+app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({
     extended: false
 }))
