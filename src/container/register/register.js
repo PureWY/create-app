@@ -55,8 +55,8 @@ class Register extends React.Component{
                 onLeftClick={this.login}
                 >用户注册</NavBar>
                 <Logo></Logo>
+                {this.props.msg?<p style={{color: "red"}}>{this.props.msg}</p>:null}
                 <WingBlank>
-
                     <List>
                         <InputItem
                         onChange={(v)=>this.handleChange('user',v)}>用户</InputItem>
