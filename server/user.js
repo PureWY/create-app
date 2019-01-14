@@ -1,4 +1,5 @@
 const express = require('express')
+const utils = require('utility')
 const Router = express.Router()
 const User = require('./model.js')
 
@@ -12,7 +13,7 @@ Router.post('/register',function(req,res){
             })
         }
         console.log({user,pwd,type})
-        User.create({user,pwd,type},function(err,doc){
+        User.create({user,pwd: utils.md5(pwd),type},function(err,doc){
             if(err){
                 return res.json({
                     code: 202,

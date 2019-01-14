@@ -3,6 +3,7 @@ import Logo from '../../component/logo/logo'
 import {NavBar,Radio,Toast, Icon, List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile'
 import { connect } from 'react-redux'
 import { register } from '../../redux/user.redux'
+import { Redirect } from 'react-router-dom'
 
 const RadioItem = Radio.RadioItem;
 
@@ -37,9 +38,6 @@ class Register extends React.Component{
     }
     handleRegister(){
         this.props.register(this.state)
-        if(this.props.msg){
-            this.failToast(this.props.msg)
-        }
         console.log(this.props)
     }
 
@@ -51,6 +49,7 @@ class Register extends React.Component{
     render(){
         return (
             <div>
+                {this.props.redirectTo? <Redirect to={this.props.redirectTo}/> : null}
                 <NavBar mode="dark"
                 icon={<Icon type="left" />}
                 onLeftClick={this.login}
