@@ -8,6 +8,8 @@ import { BrowserRouter, Route, Link, Redirect, Switch} from 'react-router-dom'
 import Login from './container/login/login.js'
 import Register from './container/register/register.js'
 import BossInfo from './container/bossinfo/bossinfo'
+import GeniusInfo from './container/geniusinfo/geniusinfo'
+import Dashboard from './component/dashboard/dashboard'
 import reducers from './reducer'
 import './config'
 import AuthRoute from './component/authrouter/authrouter'
@@ -18,12 +20,6 @@ const store = createStore(reducers,compose(
     window.devToolsExtension ? window.devToolsExtension(): () => {}
 ))
 
-function Boss() { 
-    return (
-        <h1>123</h1>
-    )
- }
-
 ReactDom.render(
     <Provider store={store}>
         <BrowserRouter>
@@ -31,9 +27,10 @@ ReactDom.render(
                 <AuthRoute></AuthRoute>
                 <Switch>
                 <Route path="/bossinfo" component={BossInfo}></Route>
+                <Route path="/geniusinfo" component={GeniusInfo}></Route>
                 <Route path="/login" component={Login}></Route>
                 <Route path="/register" component={Register}></Route>
-                <Route path="/boss" component={Boss}></Route>
+                <Route component={Dashboard}></Route>
                 </Switch>
             </div>
         </BrowserRouter>
