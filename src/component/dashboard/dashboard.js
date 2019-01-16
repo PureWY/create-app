@@ -5,12 +5,8 @@ import { connect } from 'react-redux';
 import NavLinkBar from '../navlink/navlink'
 import { Route, Switch } from 'react-router-dom'
 import Boss from '../../component/boss/boss'
+import Genius from '../../component/genius/genius'
 
-function Genius() {
-    return (
-        <h2>Genius首页</h2>
-    )
-}
 function Msg() {
     return (
         <h2>Msg首页</h2>
