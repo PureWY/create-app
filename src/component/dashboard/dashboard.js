@@ -4,12 +4,8 @@ import { NavBar, Icon, TabBar} from 'antd-mobile';
 import { connect } from 'react-redux';
 import NavLinkBar from '../navlink/navlink'
 import { Route, Switch } from 'react-router-dom'
+import Boss from '../../component/boss/boss'
 
-function Boss() {
-    return (
-        <h2>BOSS首页</h2>
-    )
-}
 function Genius() {
     return (
         <h2>Genius首页</h2>

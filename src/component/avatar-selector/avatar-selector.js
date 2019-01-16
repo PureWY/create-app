@@ -15,8 +15,8 @@ class AvatarSelector extends React.Component{
 
 
     render(){
-        const avatarList = 'header1,header2,header3,header4,header5,header6,header7,header8,header9,header10,header11,header12'.split(',').map(v => ({
-            icon: require(`../img/${v}.jpg`),
+        const avatarList = '鼠,牛,虎,兔,龙,蛇,马,羊,猴,鸡,狗,猪'.split(',').map(v => ({
+            icon: require(`../img/${v}.png`),
             text: v
         }))
         const gridHeader = this.state.icon ? 

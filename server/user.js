@@ -4,6 +4,16 @@ const Router = express.Router()
 const User = require('./model.js')
 const _filter = {'pwd': 0,'__v': 0}
 
+Router.get('/list',function(req,res){
+    const {type} = req.query
+    User.find({type},function(err,doc){
+        res.json({
+            code: 200,
+            body: doc
+        })
+    })
+})
+
 Router.post('/update',function(req,res){
     const userid = req.cookies.userid
     console.log(userid)
