@@ -6,15 +6,11 @@ import NavLinkBar from '../navlink/navlink'
 import { Route, Switch } from 'react-router-dom'
 import Boss from '../../component/boss/boss'
 import Genius from '../../component/genius/genius'
+import User from '../../component/user/user'
 
 function Msg() {
     return (
         <h2>Msg首页</h2>
-    )
-}
-function User() {
-    return (
-        <h2>User首页</h2>
     )
 }
 
@@ -71,9 +67,8 @@ class Dashboard extends React.Component{
                             <Route key={v.path} path={v.path} component={v.component} ></Route>
                         ))}
                     </Switch>
+                    <NavLinkBar data={navList}></NavLinkBar>
                 </div>
-                
-                <NavLinkBar data={navList}></NavLinkBar>
             </div>
         )
     }
