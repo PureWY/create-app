@@ -2,9 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Result,Modal, List,Button,Toast, Icon,WingBlank, WhiteSpace } from 'antd-mobile';
 import browserCookie from 'browser-cookies'
+import { logoutSubmit } from '../../redux/user.redux' 
+import { Redirect } from 'react-router-dom'
 
 @connect(
-    state => state.user
+    state => state.user,
+    {
+        logoutSubmit
+    }
 )
 class User extends React.Component{
     constructor(props){
@@ -13,32 +18,20 @@ class User extends React.Component{
     }
 
     logout(){
-        console.log('kookie')
-        browserCookie.erase('userid')
-        this.props.history.push('/login')
-    }
-
-    componentDidMount(){
-        console.log(this.props)
+        const alert = Modal.alert
+            alert('注销', '确定退出登录 ？', [
+            { text: '取消', onPress: () => console.log('取消'), style: 'default' },
+            { text: '确定', onPress: () => {
+                browserCookie.erase('userid')
+                this.props.logoutSubmit()
+            } },
+            ]);
     }
 
     render(){
         const props = this.props
         const Item = List.Item
         const Brief = Item.Brief
-        const alert = Modal.alert
-
-        const showAlert = () => {
-        const alertInstance = alert('注销', '确定退出登录 ？', [
-            { text: '取消', onPress: () => console.log('取消'), style: 'default' },
-            { text: '确定', onPress: this.logout },
-            ]);
-            setTimeout(() => {
-                // 可以调用close方法以在外部close
-                console.log('auto close');
-                alertInstance.close();
-            }, 500000);
-        };
 
         return props.user?(
             <div>
@@ -60,10 +53,10 @@ class User extends React.Component{
                 </List>
                 <WhiteSpace></WhiteSpace>
                 <List>
-                    <Item onClick={showAlert}>退出登录</Item>
+                    <Item onClick={this.logout}>退出登录</Item>
                 </List>
             </div>
-        ) : null
+        ) : <Redirect to={this.props.redirectTo}/>
     }
 }
 
