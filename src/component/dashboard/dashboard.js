@@ -52,15 +52,17 @@ class Dashboard extends React.Component{
                 icon: 'user',
                 title: '个人中心',
                 component: User
-            },
+            }
     
         ]
+        const list = navList.find(v=>v.path==pathname)
+        console.log(list)
         return (
             <div>
                 <NavBar
                 className="fixd-header"
                 mode="dark"
-                >{navList.find(v=>v.path==pathname).title}</NavBar>
+                >{list?list.title:null}</NavBar>
                 <div style={{marginTop:45}}>
                     <Switch>
                         {navList.map(v=>(
