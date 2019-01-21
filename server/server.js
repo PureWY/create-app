@@ -6,6 +6,14 @@ const db = require('./mongoose')
 
 const app = express()
 
+// work with express
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
+
+io.on('connection',function(socket){
+    console.log('user login')
+})
+
 //连接数据库
 db()
 
@@ -20,6 +28,6 @@ app.use(bodyParser.urlencoded({
 
 app.use('/user',userRouter)
 
-app.listen(9093, () => {
+server.listen(9093, () => {
     console.log('App listening on port 9093!');
 });
