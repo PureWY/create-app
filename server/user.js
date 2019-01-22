@@ -16,8 +16,9 @@ Router.get('/list',function(req,res){
 })
 
 Router.get('/getmsglist',function(req,res){
-    const user = req.cookies.user
-    Chat.find({'$or':[{from: user,to: user}]},function(err,doc){
+    const user = req.cookies.userid
+    Chat.find({'$or':[{from: user},{to: user}]},function(err,doc){
+        console.log(doc)
         if(!err){
             res.json({
                 code: 200,
