@@ -33,7 +33,6 @@ class Register extends React.Component{
 
     handleRegister(){
         this.props.register(this.props.state)
-        console.log(this.props)
     }
 
     failToast(msg) {
