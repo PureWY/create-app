@@ -1,12 +1,8 @@
 import React from 'react'
 import { List, InputItem, NavBar, Icon } from 'antd-mobile'
-import io from 'socket.io-client'
 import '../../index.css'
 import { connect } from 'react-redux'
 import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
-
-const socket = io('ws://localhost:9093')
-
 @connect(
     state => state,
     {
@@ -24,6 +20,7 @@ class Chat extends React.Component{
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.bindValue = this.bindValue.bind(this)
     }
 
     componentDidMount() {
@@ -34,7 +31,6 @@ class Chat extends React.Component{
     }
 
     handleSubmit(){
-        // socket.emit('sendmsg',{text: this.state.text})
         const from = this.props.user._id
         const to = this.props.match.params.user
         const msg = this.state.text
@@ -43,6 +39,12 @@ class Chat extends React.Component{
             text: ''
         })
 
+    }
+
+    bindValue(v){
+        this.setState({
+            text: v
+        })
     }
 
     render() {
@@ -63,6 +65,7 @@ class Chat extends React.Component{
                 
                 {this.props.chat.chatmsg.map(v=>{
                     const avatar = require(`../img/${users[v.from].avatar}.png`)
+                    console.log(userid)
                     return v.from == userid?(
                         <List key={v._id}>
                             <Item
@@ -76,22 +79,16 @@ class Chat extends React.Component{
                                 className='chat-me'>{v.content}</Item>
                         </List>
                     )
-
-                    // return <p key={v._id}>{v.content}</p>
                 })}
                 <div className="stick-footer">
                     <List>
                         <InputItem
                             placeholder="请输入"
                             value={this.state.text}
-                            onChange={v => {
-                                this.setState({
-                                    text: v
-                                })
-                            }}
+                            onChange={v => {this.bindValue(v)}}
                             extra={
                                 <span
-                                    onClick={()=>this.handleSubmit()}
+                                    onClick={()=>{this.handleSubmit()}}
                                 >发送</span>
                             }
                         ></InputItem>

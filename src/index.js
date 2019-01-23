@@ -18,7 +18,7 @@ import AuthRoute from './component/authrouter/authrouter'
 
 const store = createStore(reducers,compose(
     applyMiddleware(thunk),
-    window.devToolsExtension ? window.devToolsExtension(): () => {}
+    // window.devToolsExtension ? window.devToolsExtension(): () => {}
 ))
 
 ReactDom.render(
