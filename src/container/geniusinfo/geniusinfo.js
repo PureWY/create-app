@@ -39,7 +39,6 @@ class GeniusInfo extends React.Component{
                 <NavBar mode="dark">达人信息完善</NavBar>
                 <AvatarSelector
                 selectAvatar={(imgname) => {
-                    console.log(imgname)
                     this.setState({
                         avatar: imgname
                     })

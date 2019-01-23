@@ -7,14 +7,8 @@ import { Route, Switch } from 'react-router-dom'
 import Boss from '../../component/boss/boss'
 import Genius from '../../component/genius/genius'
 import User from '../../component/user/user'
+import Msg from '../../component/msg/msg'
 import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
-
-
-function Msg(){
-    return (
-        <h1>消息页面</h1>
-    )
-}
 
 @connect(
     state => state,
@@ -70,7 +64,6 @@ class Dashboard extends React.Component{
     
         ]
         const list = navList.find(v=>v.path==pathname)
-        console.log(list)
         return (
             <div>
                 <NavBar

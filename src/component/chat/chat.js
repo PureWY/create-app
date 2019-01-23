@@ -58,7 +58,7 @@ class Chat extends React.Component{
     }
 
     render() {
-        const emoji = '😀 😄 😅 🤣 😂 🙂 😇 😍 😜 🤗 🤐 😏 😒 🙄 😬 😪 😴 😓'
+        const emoji = '😀 😄 😅 🤣 😂 🙂 😇 😍 😜 🤗 🤐 😏 😒 🙄 😬 😪 😴 😓 🤢 🤮 🤧 🥵 🥶 🥴 😵 🤯 🤠 🥳 😎 🤓 🙁 🧐 😲 🥺 😳 😨 😱 😓 😈 👿 💀 ☠️ 💩 🤡 👻'
                         .split(' ')
                         .filter(v=>v)
                         .map(v=>({text: v}))
@@ -81,7 +81,6 @@ class Chat extends React.Component{
                 
                 {chatmsgs.map(v=>{
                     const avatar = require(`../img/${users[v.from].avatar}.png`)
-                    console.log(userid)
                     return v.from == userid?(
                         <List key={v._id}>
                             <Item

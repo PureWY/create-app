@@ -24,7 +24,6 @@ Router.get('/getmsglist',function(req,res){
             users[v._id] = {name: v.user,avatar: v.avatar}
         })
         Chat.find({'$or':[{from: user},{to: user}]},function(err,doc){
-            console.log(doc)
             if(!err){
                 res.json({
                     code: 200,
@@ -39,7 +38,6 @@ Router.get('/getmsglist',function(req,res){
 
 Router.post('/update',function(req,res){
     const userid = req.cookies.userid
-    console.log(userid)
     if(!userid){
         return res.dumps({
             code: 220,
