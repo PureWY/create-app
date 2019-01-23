@@ -1,8 +1,9 @@
 import React from 'react'
-import { List, InputItem, NavBar, Icon } from 'antd-mobile'
+import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile'
 import '../../index.css'
 import { connect } from 'react-redux'
 import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
+import { getChatId } from '../../util'
 @connect(
     state => state,
     {
@@ -16,11 +17,13 @@ class Chat extends React.Component{
         super(props)
         this.state = {
             text: '',
-            msg: []
+            msg: [],
+            showEmoji: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
         this.bindValue = this.bindValue.bind(this)
+        this.fixCarouse = this.fixCarouse.bind(this)
     }
 
     componentDidMount() {
@@ -28,6 +31,13 @@ class Chat extends React.Component{
             this.props.getMsgList()
             this.props.recvMsg()
         }
+        this.fixCarouse()
+    }
+
+    fixCarouse(){
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'))
+        },0)
     }
 
     handleSubmit(){
@@ -48,12 +58,18 @@ class Chat extends React.Component{
     }
 
     render() {
+        const emoji = '😀 😄 😅 🤣 😂 🙂 😇 😍 😜 🤗 🤐 😏 😒 🙄 😬 😪 😴 😓'
+                        .split(' ')
+                        .filter(v=>v)
+                        .map(v=>({text: v}))
         const userid = this.props.match.params.user
         const Item = List.Item
         const users = this.props.chat.users
         if(!users[userid]){
             return null
         }
+        const chatid = getChatId(userid,this.props.user._id)
+        const chatmsgs = this.props.chat.chatmsg.filter(v=>v.chatid==chatid)
         return (
             <div id='chat-page'>
                 <NavBar 
@@ -63,7 +79,7 @@ class Chat extends React.Component{
                 }}
                 mode='dark'>{users[userid].name}</NavBar>
                 
-                {this.props.chat.chatmsg.map(v=>{
+                {chatmsgs.map(v=>{
                     const avatar = require(`../img/${users[v.from].avatar}.png`)
                     console.log(userid)
                     return v.from == userid?(
@@ -87,12 +103,37 @@ class Chat extends React.Component{
                             value={this.state.text}
                             onChange={v => {this.bindValue(v)}}
                             extra={
-                                <span
+                                <div>
+                                    <span 
+                                    onClick={()=>{
+                                        this.fixCarouse()
+                                        this.setState({
+                                            showEmoji: !this.state.showEmoji
+                                        })
+                                    }}
+                                    style={{marginRight:15}}>😀</span>
+                                    <span
                                     onClick={()=>{this.handleSubmit()}}
-                                >发送</span>
+                                    >发送</span>
+                                </div>
+                                
                             }
                         ></InputItem>
                     </List>
+                    {
+                      this.state.showEmoji?<Grid
+                        columnNum={9}
+                        isCarousel={true}
+                        carouselMaxRow={4}
+                        onClick={v => {
+                            this.setState({
+                                text: this.state.text + v.text
+                            })
+                        }}
+                        data={emoji} 
+                    />:null  
+                    }
+                    
                 </div>
             </div>
         )
